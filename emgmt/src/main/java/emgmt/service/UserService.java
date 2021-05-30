@@ -80,8 +80,10 @@ public class UserService implements IUserService {
 		try {
 
 			if (retrieved4mDB != null) {
-				if (credentialUI.getUserid().equalsIgnoreCase(retrieved4mDB.getUserid()) &&
-						credentialUI.getPassword().equalsIgnoreCase(retrieved4mDB.getPassword())){
+				System.out.println(credentialUI.getUserid()+" "+credentialUI.getPassword());
+				System.out.println(retrieved4mDB.getUserid()+" "+retrieved4mDB.getPassword());
+				if (credentialUI.getUserid().equalsIgnoreCase(retrieved4mDB.getUserid().trim()) &&
+						credentialUI.getPassword().equalsIgnoreCase(retrieved4mDB.getPassword().trim())){
 					System.out.println("User entered credentials are matched with repository data..");
 				}else{
 					returnValue = "Incorrect Username / Password entered";

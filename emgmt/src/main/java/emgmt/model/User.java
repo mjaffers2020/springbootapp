@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 @Entity
-@Table(name="users", schema = "emginstance")
+@Table(name="users", schema = "emgschema")
 public class User {
 	@Id
 	@JsonProperty("UserID")
