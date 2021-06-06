@@ -35,7 +35,7 @@
               <artifactId>heroku-maven-plugin</artifactId>
               <version>2.0.3</version>
               <configuration>
-                  <appName>callicoder-heroku-maven-demo</appName>
+                  <appName>sheltered-citadel-19921</appName>
                   <includeTarget>false</includeTarget>
                   <includes>
                       <include>${project.build.directory}/${project.build.finalName}.jar</include>
@@ -44,6 +44,10 @@
                   <processTypes>
                       <web>java $JAVA_OPTS -jar ${project.build.directory}/${project.build.finalName}.jar</web>
                   </processTypes>
+                  <buildpacks>
+  					<buildpack>https://github.com/DuckyTeam/heroku-buildpack-imagemagick</buildpack>
+  <buildpack>heroku/jvm</buildpack>
+</buildpacks>
               </configuration>
           </plugin>
               
