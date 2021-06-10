@@ -1,9 +1,0 @@
-emgmt\model\UserJson.class
-emgmt\repository\UserRepository.class
-emgmt\exception\RecordNotFoundException.class
-emgmt\controller\UserController.class
-emgmt\service\IUserService.class
-emgmt\model\User.class
-emgmt\service\UserService.class
-emgmt\SpringBootMain.class
-emgmt\util\Utilities.class

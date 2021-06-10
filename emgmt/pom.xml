@@ -26,13 +26,13 @@
 		<scope>runtime</scope>
 	</dependency>
   </dependencies>
-<build>
+  <build>
   <plugins>
-    <plugin>
+  <plugin>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-maven-plugin</artifactId>
     <configuration>
-        <mainClass>emgmt.SpringBootMain</mainClass>
+        <mainClass>com.places.Main</mainClass>
     </configuration>
     <executions>
         <execution>
@@ -42,6 +42,6 @@
         </execution>
     </executions>
 </plugin>
-  </plugins>
-</build>
+</plugins>
+  </build>
 </project>
