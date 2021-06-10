@@ -25,10 +25,10 @@ public class UserController {
     	String loginStatus = "FAILURE";
 		try {
 			String userID = user.getUserid();
-			/*
-			 * User retrievedCredential = userService.getUserDetailsById(userID);
-			 * loginStatus = userService.checkLoginCredentials(user, retrievedCredential);
-			 */
+			
+			  User retrievedCredential = userService.getUserDetailsById(userID);
+			 loginStatus = userService.checkLoginCredentials(user, retrievedCredential);
+			 
 			System.out.println("returnValue : "+loginStatus);
 		} catch (Exception e) {
 			e.printStackTrace();
