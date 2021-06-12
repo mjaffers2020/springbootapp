@@ -60,14 +60,16 @@ public class UserService {
 	public String createUser(User userDetail)
 	{
 
-		if(!repository.existsById(userDetail.getUid())) {
-			userDetail = repository.save(userDetail);
+		/*
+		 * if(!repository.existsById(userDetail.getUid())) {
+		 */		
+		userDetail = repository.save(userDetail);
 			return "{ \"userid\":\""+userDetail.getUserid()+"\"}";
 
-		} else {
-			System.out.println("UID already Available  : "+userDetail.getUid());
-			return "Error"; 
-		}
+		/*
+		 * } else { System.out.println("UID already Available  : "+userDetail.getUid());
+		 * return "Error"; }
+		 */
 
 	}
 	public String updateUser(User userDetail)
