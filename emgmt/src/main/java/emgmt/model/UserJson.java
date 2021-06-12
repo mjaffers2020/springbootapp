@@ -9,6 +9,23 @@ public class UserJson {
     private String Userid;
     @JsonProperty("Password")
     private String Password;
+    @JsonProperty("FirstName")
+    private String FirstName;
+    @JsonProperty("LastName")
+    private String LastName;
+	
+	public String getFirstName() {
+		return FirstName;
+	}
+	public void setFirstName(String firstName) {
+		FirstName = firstName;
+	}
+	public String getLastName() {
+		return LastName;
+	}
+	public void setLastName(String lastName) {
+		LastName = lastName;
+	}
 	public UserJson() {
     }
 	public UserJson(String UserId, String Password) {
