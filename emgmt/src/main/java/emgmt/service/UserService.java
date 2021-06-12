@@ -42,11 +42,11 @@ public class UserService {
 		Utilities util =  new Utilities();
 		System.out.println("UID recieved : "+UId);
 		if(repository.existsById(UId)) {
-			User userDetails = repository.getOne(UId);
-			String cUId = userDetails.getUid();
+			User credentials = repository.getOne(UId);
+			String cUId = credentials.getUid();
 			if(!util.isNullorWhiteSpaces(cUId)) {
 				System.out.println("UID : "+cUId+" , found in the Repository.. ");
-				return userDetails;
+				return credentials;
 			} else {
 				System.out.println("There is no such UID found in the Repository.. ");
 				return null;

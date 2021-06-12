@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name="users", schema = "emgschema")
 public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
 	@Column(name="userid")
     private String userid;
 	
@@ -34,8 +35,7 @@ public class User {
 	
 	@JsonProperty("uid")
 	@Column(name="uid")
-	@Id
-	private String uid;
+    private String uid;
 	
     public String getEmailaddress() {
 		return emailaddress;
