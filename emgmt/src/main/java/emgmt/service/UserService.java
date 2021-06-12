@@ -59,23 +59,23 @@ public class UserService {
 	}
 	public String createUser(User userDetail)
 	{
-		if(!repository.existsById(userDetail.getUserid()))
+		if(!repository.existsById(userDetail.getUid()))
 		{
 			userDetail = repository.save(userDetail);
-			return "{ \"userid\":\""+userDetail.getUserid()+"\"";
+			return "{ \"userid\":\""+userDetail.getUid()+"\"";
 		} else {
-			System.out.println("User ID already Available  : "+userDetail.getUserid());
+			System.out.println("User ID already Available  : "+userDetail.getUid());
 			return "Error";
 		}
 	}
 	public String updateUser(User userDetail)
 	{
-		if(repository.existsById(userDetail.getUserid()))
+		if(repository.existsById(userDetail.getUid()))
 		{
 			repository.save(userDetail);
 			return "Sucess";
 		} else {
-			System.out.println("User ID does not exits  : "+userDetail.getUserid());
+			System.out.println("User ID does not exits  : "+userDetail.getUid());
 			return "Error";
 		}
 	}
