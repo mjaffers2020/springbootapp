@@ -74,8 +74,8 @@ public class UserController {
 	public String deleteUser(@RequestBody User user){
 		String returnValue = "Sucess";
 		try {
-			userService.deleteUser(user.getUid());
-			returnValue = "UserName : '"+user.getUid()+"', Deleted Successfully";
+			userService.deleteUser(user.getUserid());
+			returnValue = "UserName : '"+user.getUserid()+"', Deleted Successfully";
 			// deleteUser
 		} catch (Exception e) {
 			returnValue = "Exception : "+e.getMessage();
