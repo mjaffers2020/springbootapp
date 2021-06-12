@@ -14,14 +14,19 @@ public class User {
 	@Id
 	@Column(name="userid")
     private String userid;
-	@Column(name="emailaddress")
-    private String emailaddress;
+	
 	@Column(name="firstname")
     private String FirstName;
+	
 	@Column(name="lastname")
     private String lastname;
+	
+	@Column(name="emailaddress") 
+    private String emailaddress;
+		
 	@Column(name="phonenumber")
     private String phonenumber;
+	
 	@Column(name="uid")
     private String uid;
 	
