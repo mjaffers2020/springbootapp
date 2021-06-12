@@ -17,19 +17,19 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repository;
-	  public List<User> getAllUsers()
-	    {
-	    	System.out.println("repository.findAll() : "+repository.findAll());
-	        List<User> userList = repository.findAll();
-	        
-	        System.out.println("userList Size: "+userList);
-	        if(userList.size() > 0) {
-	            return userList;
-	        } else {
-	            return new ArrayList<User>();
-	        }
-	    }
-	  
+	public List<User> getAllUsers()
+	{
+		System.out.println("repository.findAll() : "+repository.findAll());
+		List<User> userList = repository.findAll();
+
+		System.out.println("userList Size: "+userList);
+		if(userList.size() > 0) {
+			return userList;
+		} else {
+			return new ArrayList<User>();
+		}
+	}
+
 
 	public List<User> findAll() {
 
@@ -42,11 +42,11 @@ public class UserService {
 		Utilities util =  new Utilities();
 		System.out.println("UID recieved : "+UId);
 		if(repository.existsById(UId)) {
-			User credentials = repository.getOne(UId);
-			String cUId = credentials.getUid();
+			User userDetails = repository.getOne(UId);
+			String cUId = userDetails.getUid();
 			if(!util.isNullorWhiteSpaces(cUId)) {
 				System.out.println("UID : "+cUId+" , found in the Repository.. ");
-				return credentials;
+				return userDetails;
 			} else {
 				System.out.println("There is no such UID found in the Repository.. ");
 				return null;
@@ -59,16 +59,16 @@ public class UserService {
 	}
 	public String createUser(User userDetail)
 	{
-		/*
-		 * if(!repository.existsById(userDetail.getUserid())) {
-		 */
+
+		if(!repository.existsById(userDetail.getUid())) {
 			userDetail = repository.save(userDetail);
-			return "{ \"userid\":\""+userDetail.getUserid()+"\"";
-		/*
-		 * } else {
-		 * System.out.println("User ID already Available  : "+userDetail.getUserid());
-		 * return "Error"; }
-		 */
+			return "{ \"userid\":\""+userDetail.getUserid()+"\"}";
+
+		} else {
+			System.out.println("UID already Available  : "+userDetail.getUid());
+			return "Error"; 
+		}
+
 	}
 	public String updateUser(User userDetail)
 	{
