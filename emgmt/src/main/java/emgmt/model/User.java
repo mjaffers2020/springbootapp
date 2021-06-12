@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name="users", schema = "emgschema")
 public class User {
@@ -15,18 +17,23 @@ public class User {
 	@Column(name="userid")
     private String userid;
 	
+	@JsonProperty("firstname")
 	@Column(name="firstname")
     private String FirstName;
 	
+	@JsonProperty("lastname")
 	@Column(name="lastname")
     private String lastname;
 	
+	@JsonProperty("emailaddress")
 	@Column(name="emailaddress") 
     private String emailaddress;
 		
+	@JsonProperty("phonenumber")
 	@Column(name="phonenumber")
     private String phonenumber;
 	
+	@JsonProperty("uid")
 	@Column(name="uid")
     private String uid;
 	
