@@ -14,5 +14,7 @@ public interface IUserService {
 	public String createUser(User userDetail);
 	public String updateUser(User userDetail);
 	public  String checkLoginCredentials(User credentialUI , User retrieved4mDB);
+	public List<User> getAllUsers();
+	  
     
 }

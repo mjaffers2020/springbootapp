@@ -1,10 +1,12 @@
 package emgmt.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import emgmt.exception.RecordNotFoundException;
 import emgmt.model.User;
@@ -17,6 +19,19 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private UserRepository repository;
+	  public List<User> getAllUsers()
+	    {
+	    	System.out.println("repository.findAll() : "+repository.findAll());
+	        List<User> userList = repository.findAll();
+	        
+	        System.out.println("userList Size: "+userList);
+	        if(userList.size() > 0) {
+	            return userList;
+	        } else {
+	            return new ArrayList<User>();
+	        }
+	    }
+	  
 
 	public List<User> findAll() {
 
