@@ -10,7 +10,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="users", schema = "emgschema")
 public class User {
-	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="userid")
     private String userid;
