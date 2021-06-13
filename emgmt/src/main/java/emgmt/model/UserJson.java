@@ -1,18 +1,24 @@
 package emgmt.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class UserJson {
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)  
+	@JsonProperty("uid")
 	private String uid;
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)  
+	@JsonProperty("firstname")
 	private String firstname;
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)  
-    private String lastname;
+	@JsonProperty("lastname")
+	private String lastname;
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)  
-    private String emailaddress;
-	@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)  
+	@JsonProperty("emailaddress")
+	private String emailaddress;
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES) 
+	@JsonProperty("phonenumber")
     private String phonenumber;
 	public String getUid() {
 		return uid;
