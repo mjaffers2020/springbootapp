@@ -40,5 +40,9 @@ public class UserJson {
 	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
 	}
+	@Override
+	public String toString() {
+		return " Firstname :"+firstname+" Lastname :"+lastname+"\n EmailAddress : "+emailaddress+" PhoneNumber : "+phonenumber+" UID : "+uid;
+	}
 	
 }

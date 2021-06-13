@@ -3,10 +3,6 @@ package emgmt.controller;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
-import org.apache.catalina.Manager;
-import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 import emgmt.model.User;
 import emgmt.model.UserJson;
@@ -49,6 +44,7 @@ public class UserController {
 	public String createNewUser(@RequestBody UserJson user){
 		String returnValue = "Error";
 		try {
+			System.out.println(user.toString());
 			returnValue = userService.createUser(user);
 			if("Error".equalsIgnoreCase(returnValue)) {
 				returnValue = "User ID Already Exists";

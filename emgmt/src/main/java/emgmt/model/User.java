@@ -16,7 +16,7 @@ public class User {
     private String userid;
 	
 	@Column(name="firstname")
-    private String FirstName;
+    private String firstname;
 	
 	@Column(name="lastname")
     private String lastname;
@@ -74,14 +74,17 @@ public class User {
 	}
 
 
-	public String getFirstName() {
-		return FirstName;
+	
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setFirstName(String firstName) {
-		FirstName = firstName;
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 	@Override
 	public String toString() {
-		return "Userid :"+userid+" Firstname :"+FirstName+" Lastname :"+lastname+"\n EmailAddress : "+emailaddress+" PhoneNumber : "+phonenumber+" UID : "+uid;
+		return "Userid :"+userid+" Firstname :"+firstname+" Lastname :"+lastname+"\n EmailAddress : "+emailaddress+" PhoneNumber : "+phonenumber+" UID : "+uid;
 	}
+
 }

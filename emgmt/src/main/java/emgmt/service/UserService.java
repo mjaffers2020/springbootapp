@@ -63,9 +63,9 @@ public class UserService {
 	public String createUser(UserJson userJson)
 	{
 		User userDetail  =  new User();
-		BeanUtils.copyProperties(userDetail,userJson);
+		BeanUtils.copyProperties(userJson,userDetail);
 
-		System.out.println(userDetail);
+		System.out.println("User Detailss : "+userDetail);
 		/*
 		 * if(!repository.existsById(userDetail.getUid())) {
 		 */		
