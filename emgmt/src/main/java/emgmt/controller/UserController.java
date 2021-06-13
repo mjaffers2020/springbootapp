@@ -3,6 +3,10 @@ package emgmt.controller;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
+import org.apache.catalina.Manager;
+import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import emgmt.model.User;
+import emgmt.model.UserJson;
 import emgmt.service.UserService;
 
 @Controller
@@ -41,7 +46,7 @@ public class UserController {
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST , headers = "Accept=application/json") 
 	@ResponseBody
-	public String createNewUser(@RequestBody User user){
+	public String createNewUser(@RequestBody UserJson user){
 		String returnValue = "Error";
 		try {
 			returnValue = userService.createUser(user);

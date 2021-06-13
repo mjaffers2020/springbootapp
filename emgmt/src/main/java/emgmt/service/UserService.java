@@ -4,11 +4,15 @@ package emgmt.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import emgmt.exception.RecordNotFoundException;
 import emgmt.model.User;
+import emgmt.model.UserJson;
 import emgmt.repository.UserRepository;
 import emgmt.util.Utilities;
 
@@ -41,6 +45,7 @@ public class UserService {
 	{
 		Utilities util =  new Utilities();
 		System.out.println("UID recieved : "+UId);
+		
 		if(repository.existsById(UId)) {
 			User credentials = repository.getOne(UId);
 			String cUId = credentials.getUid();
@@ -57,14 +62,17 @@ public class UserService {
 		}
 
 	}
-	public String createUser(User userDetail)
+	public String createUser(UserJson userJson)
 	{
+		User userDetail  =  new User();
+		BeanUtils.copyProperties(userDetail,userJson);
 
+		System.out.println(userDetail);
 		/*
 		 * if(!repository.existsById(userDetail.getUid())) {
 		 */		
 		userDetail = repository.save(userDetail);
-			return "{ \"userid\":\""+userDetail.getUserid()+"\"}";
+		return "{ \"userid\":\""+userDetail.getUserid()+"\"}";
 
 		/*
 		 * } else { System.out.println("UID already Available  : "+userDetail.getUid());
