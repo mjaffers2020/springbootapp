@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import emgmt.model.User;
 import emgmt.model.UserJson;
 import emgmt.service.UserService;
@@ -41,11 +44,14 @@ public class UserController {
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST , headers = "Accept=application/json") 
 	@ResponseBody
-	public String createNewUser(@RequestBody UserJson user){
+	public String createNewUser(@RequestBody String userData){
 		String returnValue = "Error";
 		try {
-			System.out.println(user.toString());
-			returnValue = userService.createUser(user);
+			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+			UserJson userJson = objectMapper.readValue(userData, UserJson.class); 
+			System.out.println(userJson.toString());
+			returnValue = userService.createUser(userJson);
 			if("Error".equalsIgnoreCase(returnValue)) {
 				returnValue = "User ID Already Exists";
 			}
