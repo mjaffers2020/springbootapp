@@ -8,7 +8,5 @@ import emgmt.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
-	User findByUID(String Uid);
-	boolean isExistsByUID(String UId);
 
 }

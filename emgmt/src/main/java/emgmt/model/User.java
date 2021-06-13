@@ -7,10 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NaturalId;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Entity
 @Table(name="users", schema = "emgschema")
 public class User {
