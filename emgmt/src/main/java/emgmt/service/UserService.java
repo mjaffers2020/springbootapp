@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import emgmt.common.exception;
+import emgmt.common.response;
 import emgmt.exception.RecordNotFoundException;
 import emgmt.model.User;
 import emgmt.model.UserJson;
@@ -43,7 +45,7 @@ public class UserService {
 	{
 		Utilities util =  new Utilities();
 		System.out.println("UID recieved : "+UId);
-		
+
 		if(repository.existsById(UId)) {
 			User credentials = repository.getOne(UId);
 			String cUId = credentials.getUid();
@@ -62,20 +64,23 @@ public class UserService {
 	}
 	public String createUser(UserJson userJson)
 	{
-		User userDetail  =  new User();
-		BeanUtils.copyProperties(userJson,userDetail);
-
-		System.out.println("User Detailss : "+userDetail);
-		/*
-		 * if(!repository.existsById(userDetail.getUid())) {
-		 */		
-		userDetail = repository.save(userDetail);
-		return "{ \"userid\":\""+userDetail.getUserid()+"\"}";
-
-		/*
-		 * } else { System.out.println("UID already Available  : "+userDetail.getUid());
-		 * return "Error"; }
-		 */
+		Utilities util = new Utilities();
+		try {
+			
+			if(repository.existsByEmailaddress(userJson.getEmailaddress())) {
+				return util.setFailureReponse(false, "User Email Already Exits");
+			}else if(repository.existsByphonenumber(userJson.getPhonenumber())) {
+				return util.setFailureReponse(false, "User Phone Number Already Exits");
+			}else {
+				User userDetail  =  new User();
+				BeanUtils.copyProperties(userJson,userDetail);
+				userDetail = repository.save(userDetail);
+				return util.setSucessReponse(true, userDetail.getUserid());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return util.setFailureReponse(false, e);
+		}
 
 	}
 	public String updateUser(User userDetail)

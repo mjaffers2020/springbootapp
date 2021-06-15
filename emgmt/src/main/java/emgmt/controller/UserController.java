@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import emgmt.model.User;
 import emgmt.model.UserJson;
 import emgmt.service.UserService;
+import emgmt.util.Utilities;
 
 @Controller
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -47,10 +48,8 @@ public class UserController {
 	public String createNewUser(@RequestBody String userData){
 		String returnValue = "Error";
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-			UserJson userJson = objectMapper.readValue(userData, UserJson.class); 
-			System.out.println(userJson.toString());
+			Utilities  util =  new Utilities();
+			UserJson userJson  = util.setJsonToObject(userData);
 			returnValue = userService.createUser(userJson);
 			if("Error".equalsIgnoreCase(returnValue)) {
 				returnValue = "User ID Already Exists";
