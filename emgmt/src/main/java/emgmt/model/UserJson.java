@@ -1,10 +1,18 @@
 package emgmt.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 public class UserJson {
+	@JsonProperty("userid")
+	private String userid;
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 	@JsonProperty("uid")
 	private String uid;
 	@JsonProperty("firstname")

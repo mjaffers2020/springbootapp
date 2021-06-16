@@ -32,7 +32,7 @@ public class UserController {
 		User userDetails = null;
 		try {
 			String uID = user.getUid();
-			userDetails = userService.getUserDetailsById(uID);
+			//userDetails = userService.getUserDetailsById(uID);
 			if(null!=userDetails) {
 				System.out.println("User Details Fouhd "+userDetails);
 			}
@@ -80,7 +80,7 @@ public class UserController {
 	public String deleteUser(@RequestBody User user){
 		String returnValue = "Sucess";
 		try {
-			userService.deleteUser(user.getUserid());
+			//userService.deleteUser(user.getUserid());
 			returnValue = "UserName : '"+user.getUserid()+"', Deleted Successfully";
 			// deleteUser
 		} catch (Exception e) {

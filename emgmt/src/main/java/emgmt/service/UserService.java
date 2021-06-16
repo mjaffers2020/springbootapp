@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import emgmt.common.exception;
@@ -41,42 +42,43 @@ public class UserService {
 
 		return userDetails;
 	}
-	public User getUserDetailsById(String UId) throws RecordNotFoundException
-	{
-		Utilities util =  new Utilities();
-		System.out.println("UID recieved : "+UId);
 
-		if(repository.existsById(UId)) {
-			User credentials = repository.getOne(UId);
-			String cUId = credentials.getUid();
-			if(!util.isNullorWhiteSpaces(cUId)) {
-				System.out.println("UID : "+cUId+" , found in the Repository.. ");
-				return credentials;
-			} else {
-				System.out.println("There is no such UID found in the Repository.. ");
-				return null;
-			}
-		}else{
-			System.out.println("There is no such  UID found in the Repository.. ");
-			return null;
-		}
-
-	}
+	/*
+	 * public User getUserDetailsById(String UId) throws RecordNotFoundException {
+	 * Utilities util = new Utilities(); System.out.println("UID recieved : "+UId);
+	 * 
+	 * if(repository.existsById(UId)) { User credentials = repository.getOne(UId);
+	 * String cUId = credentials.getUid(); if(!util.isNullorWhiteSpaces(cUId)) {
+	 * System.out.println("UID : "+cUId+" , found in the Repository.. "); return
+	 * credentials; } else {
+	 * System.out.println("There is no such UID found in the Repository.. "); return
+	 * null; } }else{
+	 * System.out.println("There is no such  UID found in the Repository.. ");
+	 * return null; }
+	 * 
+	 * }
+	 */
 	public String createUser(UserJson userJson)
 	{
 		Utilities util = new Utilities();
 		try {
 			
 			if(repository.existsByEmailaddress(userJson.getEmailaddress())) {
-				return util.setFailureReponse(false, "User Email Already Exits");
+				return util.setFailureReponse(false, "User Email Already Exits","user");
 			}else if(repository.existsByphonenumber(userJson.getPhonenumber())) {
-				return util.setFailureReponse(false, "User Phone Number Already Exits");
+				return util.setFailureReponse(false, "User Phone Number Already Exits","user");
 			}else {
 				User userDetail  =  new User();
 				BeanUtils.copyProperties(userJson,userDetail);
 				userDetail = repository.save(userDetail);
-				return util.setSucessReponse(true, userDetail.getUserid());
+				User userjson =  new User();
+				userjson.setUserid(userDetail.getUserid());
+				return util.setSucessReponse(true, userjson);
 			}
+		}catch(DataAccessException de) {
+			System.out.println("--------------------"+de.getLocalizedMessage());
+			System.out.println("--------------------"+de.getMostSpecificCause().getMessage());
+			return util.setFailureReponse(false, de);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return util.setFailureReponse(false, e);
@@ -95,14 +97,12 @@ public class UserService {
 		}
 	}
 
-	public void deleteUser(String userID) throws RecordNotFoundException
-	{
-		if (repository.existsById(userID)) {
-			repository.deleteById(userID);
-		}
-
-	}
 	/*
+	 * public void deleteUser(String userID) throws RecordNotFoundException { if
+	 * (repository.existsById(userID)) { repository.deleteById(userID); }
+	 * 
+	 * }
+	 */	/*
 	 * public String checkLoginCredentials(User credentialUI , User retrieved4mDB){
 	 * String returnValue = "SUCCESS"; try {
 	 * 

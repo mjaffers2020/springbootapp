@@ -1,8 +1,17 @@
 package emgmt.common;
 
+import emgmt.model.User;
+
 public class response {
 	private boolean success;
-	private String data;
+	public User getData() {
+		return data;
+	}
+	public void setData(User data) {
+		this.data = data;
+	}
+	private User data;
+	
 	private exception exception;
 	public exception getException() {
 		return exception;
@@ -15,11 +24,5 @@ public class response {
 	}
 	public void setSuccess(boolean success) {
 		this.success = success;
-	}
-	public String getData() {
-		return data;
-	}
-	public void setData(String data) {
-		this.data = data;
 	}
 }

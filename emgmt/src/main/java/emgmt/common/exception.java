@@ -4,7 +4,13 @@ public class exception {
 	private String message;
 	private String type;
 	private String method;
-	private int linno;
+	private Integer lineno;
+	public Integer getLineno() {
+		return lineno;
+	}
+	public void setLineno(Integer lineno) {
+		this.lineno = lineno;
+	}
 	public String getMessage() {
 		return message;
 	}
@@ -22,12 +28,6 @@ public class exception {
 	}
 	public void setMethod(String method) {
 		this.method = method;
-	}
-	public int getLinno() {
-		return linno;
-	}
-	public void setLinno(int linno) {
-		this.linno = linno;
 	}
 
 }
