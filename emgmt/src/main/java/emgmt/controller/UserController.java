@@ -34,7 +34,7 @@ public class UserController {
 		try {
 			User user  = util.setJsonToObject(userData);
 
-			String uID = user.getUid();
+			String uID = user.getuId();
 			returnValue = userService.getUserDetailsById(uID);
 			if(null==returnValue) {
 				System.out.println("User Details not Fouhd "+returnValue);
@@ -112,7 +112,7 @@ public class UserController {
 		String returnValue = "Sucess";
 		try {
 			//userService.deleteUser(user.getUserid());
-			returnValue = "UserName : '"+user.getUserid()+"', Deleted Successfully";
+			returnValue = "UserName : '"+user.getUserId()+"', Deleted Successfully";
 			// deleteUser
 		} catch (Exception e) {
 			returnValue = "Exception : "+e.getMessage();

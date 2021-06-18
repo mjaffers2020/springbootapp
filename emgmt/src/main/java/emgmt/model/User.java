@@ -13,78 +13,74 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name="userid")
-    private int userid;
+    private int userId;
 	
 	@Column(name="firstname")
-    private String firstname;
+    private String firstName;
 	
 	@Column(name="lastname")
-    private String lastname;
+    private String lastName;
 	
 	@Column(name="emailaddress") 
-    private String emailaddress;
+    private String emailAddress;
 		
 	@Column(name="phonenumber")
-    private String phonenumber;
+    private String phoneNumber;
 	
 	@Column(name="uid")
-    private String uid;
+    private String uId;
 	
-    public String getEmailaddress() {
-		return emailaddress;
-	}
-
-	public void setEmailaddress(String emailaddress) {
-		this.emailaddress = emailaddress;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
-	public String getUid() {
-		return uid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
-
-	public User() {
-    }
-	
-
-	
-	public int getUserid() {
-		return userid;
-	}
-
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
 	@Override
 	public String toString() {
-		return "Userid :"+userid+" Firstname :"+firstname+" Lastname :"+lastname+"\n EmailAddress : "+emailaddress+" PhoneNumber : "+phonenumber+" UID : "+uid;
+		return "Userid :"+userId+" Firstname :"+firstName+" Lastname :"+lastName+"\n EmailAddress : "+emailAddress+" PhoneNumber : "+phoneNumber+" UID : "+uId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getuId() {
+		return uId;
+	}
+
+	public void setuId(String uId) {
+		this.uId = uId;
 	}
 
 }

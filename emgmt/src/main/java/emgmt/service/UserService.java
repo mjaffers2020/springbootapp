@@ -41,14 +41,14 @@ public class UserService {
 	public String getUserDetailsById(String UId) throws RecordNotFoundException {
 		Utilities util = new Utilities(); 
 		System.out.println("UID recieved : "+UId);
-		if(repository.existsByUid(UId)) { 
-			User userDetails = repository.findByUid(UId);
-			String cUId = userDetails.getUid(); 
+		if(repository.existsByuId(UId)) { 
+			User userDetails = repository.findByuId(UId);
+			String cUId = userDetails.getuId(); 
 			if(!util.isNullorWhiteSpaces(cUId)) {
 				User user = new User();
-				user.setUserid(userDetails.getUserid());
-				user.setFirstname(userDetails.getFirstname());
-				user.setLastname(userDetails.getLastname());
+				user.setUserId(userDetails.getUserId());
+				user.setFirstName(userDetails.getFirstName());
+				user.setLastName(userDetails.getLastName());
 				System.out.println("UID : "+cUId+" , found in the Repository.. "); 
 				return 	util.setSucessReponse(true, user); 
 			} else {
@@ -66,13 +66,13 @@ public class UserService {
 		Utilities util = new Utilities();
 		try {
 
-			if (repository.existsByEmailaddress(user.getEmailaddress())) {
+			if (repository.existsByEmailAddress(user.getEmailAddress())) {
 				return util.setFailureReponse(false, "User Email Already Exits", "user");
-			} else if (repository.existsByphonenumber(user.getPhonenumber())) {
+			} else if (repository.existsByphoneNumber(user.getPhoneNumber())) {
 				return util.setFailureReponse(false, "User Phone Number Already Exits", "user");
 			} else {
 				user = repository.save(user);
-				return util.setSucessReponse(true, user.getUserid());
+				return util.setSucessReponse(true, user.getUserId());
 			}
 		} catch (DataAccessException de) {
 			System.out.println("--------------------" + de.getLocalizedMessage());
@@ -86,11 +86,11 @@ public class UserService {
 	}
 
 	public String updateUser(User userDetail) {
-		if (repository.existsById(userDetail.getUserid())) {
+		if (repository.existsById(userDetail.getUserId())) {
 			repository.save(userDetail);
 			return "Sucess";
 		} else {
-			System.out.println("User ID does not exits  : " + userDetail.getUserid());
+			System.out.println("User ID does not exits  : " + userDetail.getUserId());
 			return "Error";
 		}
 	}
