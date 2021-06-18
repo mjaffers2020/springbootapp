@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,26 +47,24 @@ public class UserController {
 
 		return returnValue;  
 	}
-	@GetMapping(value="/user" )
+	@GetMapping(value="/user/{uid}" )
 	@ResponseBody
-	public String getUser(@RequestParam(required=true) Map<String, String> params) {
+	public String getUser(@PathVariable("uid") String uid) {
 
 		String returnValue = null;
 		Utilities  util =  new Utilities();
-		System.out.println(params);
+		System.out.println(uid);
 
 		try {
-			if(params.size()==1) {
-				System.out.println(params.keySet().toArray()[0].toString().toLowerCase());
-				String uID = params.get(params.keySet().toArray()[0].toString());
-				returnValue = userService.getUserDetailsById(uID);
+			if(null!=uid && !"".equals(uid)) {
+				returnValue = userService.getUserDetailsById(uid);
 				if(null==returnValue) {
 					System.out.println("User Details not Fouhd "+returnValue);
 					returnValue = util.setFailureReponse(false, "Uid does not Exits", "user");
 				}
 			}else {
-				System.out.println("Invalid number of params found for Uid "+returnValue);
-				returnValue = util.setFailureReponse(false, "Invalid number of Params found for Uid", "user");
+				System.out.println("uid is empay or null "+returnValue);
+				returnValue = util.setFailureReponse(false, "uid is empay or null", "user");
 			}
 
 		} catch (Exception e) {
