@@ -2,13 +2,16 @@ package emgmt.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import emgmt.model.User;
@@ -29,34 +32,42 @@ public class UserController {
 		Utilities  util =  new Utilities();
 		try {
 			User user  = util.setJsonToObject(userData);
-	
+
 			String uID = user.getUid();
 			returnValue = userService.getUserDetailsById(uID);
 			if(null==returnValue) {
 				System.out.println("User Details not Fouhd "+returnValue);
 				returnValue = util.setFailureReponse(false, "Uid does not Exits", "user");
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return returnValue;  
 	}
-	@RequestMapping(value="/getuser", method=RequestMethod.POST , headers = "Accept=application/json")
+	@GetMapping(value="/user" )
 	@ResponseBody
-	public String getUser(@RequestBody String userData) {
+	public String getUser(@RequestParam(required=true) Map<String, String> params) {
+
 		String returnValue = null;
 		Utilities  util =  new Utilities();
+		System.out.println(params);
+
 		try {
-			User user  = util.setJsonToObject(userData);
-			String uID = user.getUid();
-			returnValue = userService.getUserDetailsById(uID);
-			if(null==returnValue) {
-				System.out.println("User Details not Fouhd "+returnValue);
-				returnValue = util.setFailureReponse(false, "Uid does not Exits", "user");
+			if(params.size()==1) {
+				System.out.println(params.keySet().toArray()[0].toString().toLowerCase());
+				String uID = params.get(params.keySet().toArray()[0].toString());
+				returnValue = userService.getUserDetailsById(uID);
+				if(null==returnValue) {
+					System.out.println("User Details not Fouhd "+returnValue);
+					returnValue = util.setFailureReponse(false, "Uid does not Exits", "user");
+				}
+			}else {
+				System.out.println("Invalid number of params found for Uid "+returnValue);
+				returnValue = util.setFailureReponse(false, "Invalid number of Params found for Uid", "user");
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
