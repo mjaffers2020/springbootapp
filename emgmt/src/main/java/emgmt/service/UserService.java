@@ -3,16 +3,12 @@ package emgmt.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import emgmt.common.exception;
-import emgmt.common.response;
 import emgmt.exception.RecordNotFoundException;
 import emgmt.model.User;
-import emgmt.model.UserJson;
 import emgmt.repository.UserRepository;
 import emgmt.util.Utilities;
 
@@ -66,19 +62,17 @@ public class UserService {
 
 	}
 
-	public String createUser(UserJson userJson) {
+	public String createUser(User user) {
 		Utilities util = new Utilities();
 		try {
 
-			if (repository.existsByEmailaddress(userJson.getEmailaddress())) {
+			if (repository.existsByEmailaddress(user.getEmailaddress())) {
 				return util.setFailureReponse(false, "User Email Already Exits", "user");
-			} else if (repository.existsByphonenumber(userJson.getPhonenumber())) {
+			} else if (repository.existsByphonenumber(user.getPhonenumber())) {
 				return util.setFailureReponse(false, "User Phone Number Already Exits", "user");
 			} else {
-				User userDetail = new User();
-				BeanUtils.copyProperties(userJson, userDetail);
-				userDetail = repository.save(userDetail);
-				return util.setSucessReponse(true, userDetail.getUserid());
+				user = repository.save(user);
+				return util.setSucessReponse(true, user.getUserid());
 			}
 		} catch (DataAccessException de) {
 			System.out.println("--------------------" + de.getLocalizedMessage());

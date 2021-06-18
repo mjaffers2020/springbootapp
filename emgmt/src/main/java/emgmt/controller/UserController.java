@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import emgmt.model.User;
-import emgmt.model.UserJson;
 import emgmt.service.UserService;
 import emgmt.util.Utilities;
 
@@ -28,10 +24,12 @@ public class UserController {
 
 	@RequestMapping(value="/signin", method=RequestMethod.POST , headers = "Accept=application/json")
 	@ResponseBody
-	public String userLogin(@RequestBody User user) {
+	public String userLogin(@RequestBody String userData) {
 		String returnValue = null;
 		Utilities  util =  new Utilities();
 		try {
+			User user  = util.setJsonToObject(userData);
+	
 			String uID = user.getUid();
 			returnValue = userService.getUserDetailsById(uID);
 			if(null==returnValue) {
@@ -45,14 +43,35 @@ public class UserController {
 
 		return returnValue;  
 	}
+	@RequestMapping(value="/getuser", method=RequestMethod.POST , headers = "Accept=application/json")
+	@ResponseBody
+	public String getUser(@RequestBody String userData) {
+		String returnValue = null;
+		Utilities  util =  new Utilities();
+		try {
+			User user  = util.setJsonToObject(userData);
+			String uID = user.getUid();
+			returnValue = userService.getUserDetailsById(uID);
+			if(null==returnValue) {
+				System.out.println("User Details not Fouhd "+returnValue);
+				returnValue = util.setFailureReponse(false, "Uid does not Exits", "user");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return returnValue;  
+	}
+
 	@RequestMapping(value="/register", method=RequestMethod.POST , headers = "Accept=application/json") 
 	@ResponseBody
 	public String createNewUser(@RequestBody String userData){
 		String returnValue = "Error";
 		try {
 			Utilities  util =  new Utilities();
-			UserJson userJson  = util.setJsonToObject(userData);
-			returnValue = userService.createUser(userJson);
+			User user  = util.setJsonToObject(userData);
+			returnValue = userService.createUser(user);
 			if("Error".equalsIgnoreCase(returnValue)) {
 				returnValue = util.setFailureReponse(false, "User Email Already Exits", "user");
 			}

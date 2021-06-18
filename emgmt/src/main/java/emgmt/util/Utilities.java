@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import emgmt.common.exception;
 import emgmt.common.response;
 import emgmt.model.User;
-import emgmt.model.UserJson;
 
 public class Utilities {
 
@@ -26,12 +25,12 @@ public class Utilities {
 		}	
 		return flag;
 	}
-	public UserJson setJsonToObject(String userData) {
-		UserJson userJson = null;
+	public User setJsonToObject(String userData) {
+		User user = null;
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 		try {
-			userJson = objectMapper.readValue(userData, UserJson.class);
+			user = objectMapper.readValue(userData, User.class);
 
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
@@ -40,9 +39,9 @@ public class Utilities {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		return userJson;
+		return user;
 	}
-	public String setObjectToJson(UserJson user) {
+	public String setObjectToJson(User user) {
 		String userJson = null;
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
@@ -114,7 +113,7 @@ public class Utilities {
 
 		exception exc =new exception();
 		exc.setMessage(cause.getMessage());
-		exc.setLineno(rootCause.getStackTrace()[0].getLineNumber());
+		exc.setLineNumber(rootCause.getStackTrace()[0].getLineNumber());
 		exc.setMethod(rootCause.getStackTrace()[0].getClassName()+"."+rootCause.getStackTrace()[0].getMethodName());
 		exc.setType("System");
 		return exc;
@@ -124,7 +123,7 @@ public class Utilities {
 
 		exception exc =new exception();
 		exc.setMessage(cause.getMostSpecificCause().getMessage());
-		exc.setLineno(cause.getStackTrace()[0].getLineNumber());
+		exc.setLineNumber(cause.getStackTrace()[0].getLineNumber());
 		exc.setMethod(cause.getStackTrace()[0].getClassName()+"."+cause.getStackTrace()[0].getMethodName());
 		exc.setType("System");
 		return exc;

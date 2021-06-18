@@ -4,12 +4,12 @@ public class exception {
 	private String message;
 	private String type;
 	private String method;
-	private Integer lineno;
-	public Integer getLineno() {
-		return lineno;
+	private Integer lineNumber;
+	public Integer getLineNumber() {
+		return lineNumber;
 	}
-	public void setLineno(Integer lineno) {
-		this.lineno = lineno;
+	public void setLineNumber(Integer lineNumber) {
+		this.lineNumber = lineNumber;
 	}
 	public String getMessage() {
 		return message;
