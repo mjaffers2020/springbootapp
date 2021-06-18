@@ -1,6 +1,5 @@
 package emgmt.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,19 +21,18 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repository;
-	public List<User> getAllUsers()
-	{
-		System.out.println("repository.findAll() : "+repository.findAll());
+
+	public List<User> getAllUsers() {
+		System.out.println("repository.findAll() : " + repository.findAll());
 		List<User> userList = repository.findAll();
 
-		System.out.println("userList Size: "+userList);
-		if(userList.size() > 0) {
+		System.out.println("userList Size: " + userList);
+		if (userList.size() > 0) {
 			return userList;
 		} else {
 			return new ArrayList<User>();
 		}
 	}
-
 
 	public List<User> findAll() {
 
@@ -43,56 +41,62 @@ public class UserService {
 		return userDetails;
 	}
 
-	/*
-	 * public User getUserDetailsById(String UId) throws RecordNotFoundException {
-	 * Utilities util = new Utilities(); System.out.println("UID recieved : "+UId);
-	 * 
-	 * if(repository.existsById(UId)) { User credentials = repository.getOne(UId);
-	 * String cUId = credentials.getUid(); if(!util.isNullorWhiteSpaces(cUId)) {
-	 * System.out.println("UID : "+cUId+" , found in the Repository.. "); return
-	 * credentials; } else {
-	 * System.out.println("There is no such UID found in the Repository.. "); return
-	 * null; } }else{
-	 * System.out.println("There is no such  UID found in the Repository.. ");
-	 * return null; }
-	 * 
-	 * }
-	 */
-	public String createUser(UserJson userJson)
-	{
+
+	public String getUserDetailsById(String UId) throws RecordNotFoundException {
+		Utilities util = new Utilities(); 
+		System.out.println("UID recieved : "+UId);
+		if(repository.existsByUid(UId)) { 
+			User userDetails = repository.findByUid(UId);
+			String cUId = userDetails.getUid(); 
+			if(!util.isNullorWhiteSpaces(cUId)) {
+				User user = new User();
+				user.setUserid(userDetails.getUserid());
+				user.setFirstname(userDetails.getFirstname());
+				user.setLastname(userDetails.getLastname());
+				System.out.println("UID : "+cUId+" , found in the Repository.. "); 
+				return 	util.setSucessReponse(true, user); 
+			} else {
+				System.out.println("There is no such UID found in the Repository.. "); 
+				return util.setFailureReponse(false, "Uid does not Exits", "user");
+			}
+		}else{
+			System.out.println("There is no such  UID found in the Repository.. ");
+			return util.setFailureReponse(false, "Uid does not Exits", "user");
+		}
+
+	}
+
+	public String createUser(UserJson userJson) {
 		Utilities util = new Utilities();
 		try {
-			
-			if(repository.existsByEmailaddress(userJson.getEmailaddress())) {
-				return util.setFailureReponse(false, "User Email Already Exits","user");
-			}else if(repository.existsByphonenumber(userJson.getPhonenumber())) {
-				return util.setFailureReponse(false, "User Phone Number Already Exits","user");
-			}else {
-				User userDetail  =  new User();
-				BeanUtils.copyProperties(userJson,userDetail);
+
+			if (repository.existsByEmailaddress(userJson.getEmailaddress())) {
+				return util.setFailureReponse(false, "User Email Already Exits", "user");
+			} else if (repository.existsByphonenumber(userJson.getPhonenumber())) {
+				return util.setFailureReponse(false, "User Phone Number Already Exits", "user");
+			} else {
+				User userDetail = new User();
+				BeanUtils.copyProperties(userJson, userDetail);
 				userDetail = repository.save(userDetail);
-				User userjson =  new User();
-				userjson.setUserid(userDetail.getUserid());
-				return util.setSucessReponse(true, userjson);
+				return util.setSucessReponse(true, userDetail.getUserid());
 			}
-		}catch(DataAccessException de) {
-			System.out.println("--------------------"+de.getLocalizedMessage());
-			System.out.println("--------------------"+de.getMostSpecificCause().getMessage());
+		} catch (DataAccessException de) {
+			System.out.println("--------------------" + de.getLocalizedMessage());
+			System.out.println("--------------------" + de.getMostSpecificCause().getMessage());
 			return util.setFailureReponse(false, de);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return util.setFailureReponse(false, e);
 		}
 
 	}
-	public String updateUser(User userDetail)
-	{
-		if(repository.existsById(userDetail.getUserid()))
-		{
+
+	public String updateUser(User userDetail) {
+		if (repository.existsById(userDetail.getUserid())) {
 			repository.save(userDetail);
 			return "Sucess";
 		} else {
-			System.out.println("User ID does not exits  : "+userDetail.getUserid());
+			System.out.println("User ID does not exits  : " + userDetail.getUserid());
 			return "Error";
 		}
 	}
@@ -102,7 +106,7 @@ public class UserService {
 	 * (repository.existsById(userID)) { repository.deleteById(userID); }
 	 * 
 	 * }
-	 */	/*
+	 */ /*
 	 * public String checkLoginCredentials(User credentialUI , User retrieved4mDB){
 	 * String returnValue = "SUCCESS"; try {
 	 * 

@@ -4,13 +4,14 @@ import emgmt.model.User;
 
 public class response {
 	private boolean success;
-	public User getData() {
+	
+	public Object getData() {
 		return data;
 	}
-	public void setData(User data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
-	private User data;
+	private Object data;
 	
 	private exception exception;
 	public exception getException() {

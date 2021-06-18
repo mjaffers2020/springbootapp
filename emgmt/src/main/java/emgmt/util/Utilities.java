@@ -85,7 +85,7 @@ public class Utilities {
 		return setObjectToJson(res);
 
 	}
-	public String setSucessReponse(boolean success,User user) {
+	public String setSucessReponse(boolean success,Object user) {
 		response  res =  new response();
 		res.setSuccess(success);
 		res.setData(user);

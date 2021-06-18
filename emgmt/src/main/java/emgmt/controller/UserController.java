@@ -28,20 +28,22 @@ public class UserController {
 
 	@RequestMapping(value="/signin", method=RequestMethod.POST , headers = "Accept=application/json")
 	@ResponseBody
-	public User userLogin(@RequestBody User user) {
-		User userDetails = null;
+	public String userLogin(@RequestBody User user) {
+		String returnValue = null;
+		Utilities  util =  new Utilities();
 		try {
 			String uID = user.getUid();
-			//userDetails = userService.getUserDetailsById(uID);
-			if(null!=userDetails) {
-				System.out.println("User Details Fouhd "+userDetails);
+			returnValue = userService.getUserDetailsById(uID);
+			if(null==returnValue) {
+				System.out.println("User Details not Fouhd "+returnValue);
+				returnValue = util.setFailureReponse(false, "Uid does not Exits", "user");
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return userDetails;  
+		return returnValue;  
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST , headers = "Accept=application/json") 
 	@ResponseBody
@@ -52,7 +54,7 @@ public class UserController {
 			UserJson userJson  = util.setJsonToObject(userData);
 			returnValue = userService.createUser(userJson);
 			if("Error".equalsIgnoreCase(returnValue)) {
-				returnValue = "User ID Already Exists";
+				returnValue = util.setFailureReponse(false, "User Email Already Exits", "user");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
