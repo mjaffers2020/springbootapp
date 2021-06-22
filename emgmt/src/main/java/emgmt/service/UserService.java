@@ -95,33 +95,4 @@ public class UserService {
 		}
 	}
 
-	/*
-	 * public void deleteUser(String userID) throws RecordNotFoundException { if
-	 * (repository.existsById(userID)) { repository.deleteById(userID); }
-	 * 
-	 * }
-	 */ /*
-	 * public String checkLoginCredentials(User credentialUI , User retrieved4mDB){
-	 * String returnValue = "SUCCESS"; try {
-	 * 
-	 * if (retrieved4mDB != null) {
-	 * System.out.println(credentialUI.getUserid()+" "+credentialUI.getPassword());
-	 * System.out.println(retrieved4mDB.getUserid()+" "+retrieved4mDB.getPassword())
-	 * ; if
-	 * (credentialUI.getUserid().equalsIgnoreCase(retrieved4mDB.getUserid().trim())
-	 * &&
-	 * credentialUI.getPassword().equalsIgnoreCase(retrieved4mDB.getPassword().trim(
-	 * ))){ System.out.
-	 * println("User entered credentials are matched with repository data..");
-	 * }else{ returnValue = "Incorrect Username / Password entered";
-	 * System.out.println("Incorrect Username / Password entered.."); } }else
-	 * if(credentialUI.getUserid().equalsIgnoreCase("admin")&&
-	 * credentialUI.getPassword().equalsIgnoreCase("admin")){ System.out.
-	 * println("User entered credentials are matched with repository data.."); }else
-	 * { returnValue = "No Record found. Please register to proceed further";
-	 * System.out.
-	 * println("There is no User Data Record available in the Repository."); }
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } return returnValue; }
-	 */
 }

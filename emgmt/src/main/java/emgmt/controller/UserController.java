@@ -1,18 +1,16 @@
 package emgmt.controller;
 
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import emgmt.model.User;
@@ -26,27 +24,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value="/signin", method=RequestMethod.POST , headers = "Accept=application/json")
-	@ResponseBody
-	public String userLogin(@RequestBody String userData) {
-		String returnValue = null;
-		Utilities  util =  new Utilities();
-		try {
-			User user  = util.setJsonToObject(userData);
-
-			String uID = user.getuId();
-			returnValue = userService.getUserDetailsById(uID);
-			if(null==returnValue) {
-				System.out.println("User Details not Fouhd "+returnValue);
-				returnValue = util.setFailureReponse(false, "Uid does not Exits", "user");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return returnValue;  
-	}
 	@GetMapping(value="/user/{uid}" )
 	@ResponseBody
 	public String getUser(@PathVariable("uid") String uid) {
@@ -91,7 +68,33 @@ public class UserController {
 		}
 		return returnValue;
 	}
-	@RequestMapping(value="/updateUser", method=RequestMethod.POST , headers = "Accept=application/json") 
+
+	@RequestMapping("*")
+	@ResponseBody
+	public String fallbackMethod(){
+		return "fallback method";
+	}
+
+	@GetMapping(value="/Student/Basic/{studentid}" )
+	@ResponseBody
+	public String getGenders(@PathVariable("studentid") String test,@RequestHeader MultiValueMap<String, String> headers) {
+
+		String returnValue = null;
+		System.out.println(test);
+		System.out.println(headers);
+		System.out.println(getNationality(headers));
+		return returnValue;  
+	}
+	@GetMapping(value="/app/nationalities" )
+	@ResponseBody
+	public String getNationality(@RequestHeader MultiValueMap<String, String> headers) {
+
+		String returnValue = null;
+		System.out.println("--------------------"+headers);
+		return returnValue;  
+	}
+
+	/*	@RequestMapping(value="/updateUser", method=RequestMethod.POST , headers = "Accept=application/json") 
 	@ResponseBody
 	public String updateUser(@RequestBody User user){
 		String returnValue = "Error";
@@ -119,12 +122,7 @@ public class UserController {
 		}
 		return returnValue;
 	}
+	 */
 
-	@RequestMapping(value="/getUsers", method=RequestMethod.GET)
-	@ResponseBody
-	public List<User> loadAllUserData(){
-		List<User> getAllUser = userService.getAllUsers();
-		return getAllUser;
-	}
 
 }
