@@ -8,7 +8,15 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import emgmt.exception.RecordNotFoundException;
+import emgmt.model.Genders;
+import emgmt.model.Nationalities;
+import emgmt.model.ProfileBasic;
+import emgmt.model.Religions;
 import emgmt.model.User;
+import emgmt.repository.GenderRepository;
+import emgmt.repository.NationalitiesRepository;
+import emgmt.repository.ProfileBasicRepository;
+import emgmt.repository.ReligionsRepository;
 import emgmt.repository.UserRepository;
 import emgmt.util.Utilities;
 
@@ -16,33 +24,74 @@ import emgmt.util.Utilities;
 public class UserService {
 
 	@Autowired
-	private UserRepository repository;
+	private UserRepository userRepository;
+	
+	@Autowired
+	private GenderRepository genderRepository;
+
+	@Autowired
+	private NationalitiesRepository nationalitiesRepository;
+	
+	@Autowired
+	private ReligionsRepository religionsRepository;
+
+	@Autowired
+	private ProfileBasicRepository profileBasicRepository;
 
 	public List<User> getAllUsers() {
-		System.out.println("repository.findAll() : " + repository.findAll());
-		List<User> userList = repository.findAll();
-
-		System.out.println("userList Size: " + userList);
+		List<User> userList = userRepository.findAll();
+		System.out.println("getAllUsers: " + userList);
 		if (userList.size() > 0) {
 			return userList;
 		} else {
-			return new ArrayList<User>();
+			return null;
 		}
 	}
 
-	public List<User> findAll() {
-
-		List<User> userDetails = (List<User>) repository.findAll();
-
-		return userDetails;
+	public List<Genders> getAllGenders() {
+		List<Genders> gendersList = genderRepository.findAll();
+		System.out.println("getAllGenders: " + gendersList);
+		if (gendersList.size() > 0) {
+			return gendersList;
+		} else {
+			return null;
+		}
+	}
+	public List<Nationalities> getAllNationalities() {
+		List<Nationalities> nationalityList = nationalitiesRepository.findAll();
+		System.out.println("getAllNationalities: " + nationalityList);
+		if (nationalityList.size() > 0) {
+			return nationalityList;
+		} else {
+			return null;
+		}
 	}
 
+	public List<Religions> getAllReligions() {
+		List<Religions> religionsList = religionsRepository.findAll();
+		System.out.println("getAllReligions: " + religionsList);
+		if (religionsList.size() > 0) {
+			return religionsList;
+		} else {
+			return null;
+		}
+	}
 
+	public List<ProfileBasic> getAllProfileBasic() {
+		List<ProfileBasic> profileBasicList = profileBasicRepository.findAll();
+		System.out.println("getAllProfileBasic: " + profileBasicList);
+		if (profileBasicList.size() > 0) {
+			return profileBasicList;
+		} else {
+			return null;
+		}
+	}
+	
 	public String getUserDetailsById(String UId) throws RecordNotFoundException {
 		Utilities util = new Utilities(); 
 		System.out.println("UID recieved : "+UId);
-		if(repository.existsByuId(UId)) { 
-			User userDetails = repository.findByuId(UId);
+		if(userRepository.existsByuId(UId)) { 
+			User userDetails = userRepository.findByuId(UId);
 			String cUId = userDetails.getuId(); 
 			if(!util.isNullorWhiteSpaces(cUId)) {
 				User user = new User();
@@ -66,12 +115,12 @@ public class UserService {
 		Utilities util = new Utilities();
 		try {
 
-			if (repository.existsByEmailAddress(user.getEmailAddress())) {
+			if (userRepository.existsByEmailAddress(user.getEmailAddress())) {
 				return util.setFailureReponse(false, "User Email Already Exits", "user");
-			} else if (repository.existsByphoneNumber(user.getPhoneNumber())) {
+			} else if (userRepository.existsByphoneNumber(user.getPhoneNumber())) {
 				return util.setFailureReponse(false, "User Phone Number Already Exits", "user");
 			} else {
-				user = repository.save(user);
+				user = userRepository.save(user);
 				return util.setSucessReponse(true, user.getUserId());
 			}
 		} catch (DataAccessException de) {
@@ -86,8 +135,8 @@ public class UserService {
 	}
 
 	public String updateUser(User userDetail) {
-		if (repository.existsById(userDetail.getUserId())) {
-			repository.save(userDetail);
+		if (userRepository.existsById(userDetail.getUserId())) {
+			userRepository.save(userDetail);
 			return "Sucess";
 		} else {
 			System.out.println("User ID does not exits  : " + userDetail.getUserId());

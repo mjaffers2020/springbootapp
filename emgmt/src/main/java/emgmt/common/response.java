@@ -1,7 +1,5 @@
 package emgmt.common;
 
-import emgmt.model.User;
-
 public class response {
 	private boolean success;
 	

@@ -57,7 +57,7 @@ public class UserController {
 		String returnValue = "Error";
 		try {
 			Utilities  util =  new Utilities();
-			User user  = util.setJsonToObject(userData);
+			User user  = util.setJsonToObject(userData,User.class);
 			returnValue = userService.createUser(user);
 			if("Error".equalsIgnoreCase(returnValue)) {
 				returnValue = util.setFailureReponse(false, "User Email Already Exits", "user");
@@ -77,12 +77,11 @@ public class UserController {
 
 	@GetMapping(value="/Student/Basic/{studentid}" )
 	@ResponseBody
-	public String getGenders(@PathVariable("studentid") String test,@RequestHeader MultiValueMap<String, String> headers) {
+	public String getGenders(@PathVariable("studentid") String studentid,@RequestHeader MultiValueMap<String, String> headers) {
 
 		String returnValue = null;
-		System.out.println(test);
+		System.out.println(studentid);
 		System.out.println(headers);
-		System.out.println(getNationality(headers));
 		return returnValue;  
 	}
 	@GetMapping(value="/app/nationalities" )
@@ -93,7 +92,24 @@ public class UserController {
 		System.out.println("--------------------"+headers);
 		return returnValue;  
 	}
+	@GetMapping(value="/app/religions" )
+	@ResponseBody
+	public String getReligions(@RequestHeader MultiValueMap<String, String> headers) {
 
+		String returnValue = null;
+		System.out.println("--------------------"+headers);
+		return returnValue;  
+	}
+
+	@GetMapping(value="/app/genders" )
+	@ResponseBody
+	public String getGenders(@RequestHeader MultiValueMap<String, String> headers) {
+
+		String returnValue = null;
+		System.out.println("--------------------"+headers);
+		return returnValue;  
+	}
+	
 	/*	@RequestMapping(value="/updateUser", method=RequestMethod.POST , headers = "Accept=application/json") 
 	@ResponseBody
 	public String updateUser(@RequestBody User user){

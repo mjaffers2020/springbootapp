@@ -2,35 +2,40 @@ package emgmt.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="gender", schema = "ems")
-public class Genders {
+@Table(name="profilebasic", schema = "ems")
+public class ProfileBasic {
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
-	@Column(name="genderid")
-    private int genderId;
+	@Column(name="profilebasicid")
+    private int profileBasicId;
 	
-	@Column(name="description")
-    private String description;
+	@Column(name="firstname")
+    private String firstName;
 
+	@Column(name="middlename")
+    private String middleName;
 
-	public int getGenderId() {
-		return genderId;
-	}
+	@Column(name="lastname")
+	private String lastName;
 
-	public void setGenderId(int genderId) {
-		this.genderId = genderId;
-	}
+	@Column(name="genderid")
+    private String genderId;
 
-	public String getDescription() {
-		return description;
-	}
+	@Column(name="dateofbirth")
+    private String dateOfBirth;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	@Column(name="religionid")
+    private String religionId;
+
+	@Column(name="nationalityid")
+    private String nationalityId;
+
 	
 
 }

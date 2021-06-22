@@ -4,8 +4,8 @@ package emgmt.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import emgmt.model.Religions;
+import emgmt.model.ProfileBasic;
 
 @Repository
-public interface ReligionsRepository extends JpaRepository<Religions, Integer> {
+public interface ProfileBasicRepository extends JpaRepository<ProfileBasic, Integer> {
 }

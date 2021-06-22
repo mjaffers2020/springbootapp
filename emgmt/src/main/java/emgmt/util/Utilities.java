@@ -25,12 +25,12 @@ public class Utilities {
 		}	
 		return flag;
 	}
-	public User setJsonToObject(String userData) {
-		User user = null;
+	public <Generic> Generic  setJsonToObject(String userData,Class<Generic> clazz) {
+		Generic genericData = null;
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 		try {
-			user = objectMapper.readValue(userData, User.class);
+			genericData = objectMapper.readValue(userData, clazz);
 
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
@@ -39,25 +39,10 @@ public class Utilities {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		return user;
+		return genericData;
 	}
-	public String setObjectToJson(User user) {
-		String userJson = null;
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-		objectMapper.setSerializationInclusion(Include.NON_NULL);
-		try {
-			userJson = objectMapper.writeValueAsString(user);			
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		return userJson;
-	}
-	public String setObjectToJson(response response) {
+	
+	public <Generic> Generic setObjectToJson(Generic response) {
 		String responseJson = null;
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
@@ -71,7 +56,7 @@ public class Utilities {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		return responseJson;
+		return (Generic)responseJson;
 	}
 	public String setFailureReponse(boolean success, String message,String type) {
 		response  res =  new response();
@@ -81,28 +66,28 @@ public class Utilities {
 		exc.setType(type);
 		res.setException(exc);
 	
-		return setObjectToJson(res);
+		return String.valueOf(setObjectToJson(res));
 
 	}
 	public String setSucessReponse(boolean success,Object user) {
 		response  res =  new response();
 		res.setSuccess(success);
 		res.setData(user);
-		return setObjectToJson(res);
+		return String.valueOf(setObjectToJson(res));
 
 	}
 	public String setFailureReponse(boolean success, Exception e) {
 		response  res =  new response();
 		res.setSuccess(success);
 		res.setException(setErrorDetails(e));
-		return setObjectToJson(res);
+		return String.valueOf(setObjectToJson(res));
 
 	}
 	public String setFailureReponse(boolean success, DataAccessException e) {
 		response  res =  new response();
 		res.setSuccess(success);
 		res.setException(setErrorDetails(e));
-		return setObjectToJson(res);
+		return String.valueOf(setObjectToJson(res));
 
 	}
 	private exception setErrorDetails(final Throwable cause)
