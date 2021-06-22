@@ -1,6 +1,11 @@
 package emgmt.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
+import org.springframework.util.MultiValueMap;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,7 +46,7 @@ public class Utilities {
 		} 
 		return genericData;
 	}
-	
+
 	public <Generic> Generic setObjectToJson(Generic response) {
 		String responseJson = null;
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -65,7 +70,7 @@ public class Utilities {
 		exc.setMessage(message);
 		exc.setType(type);
 		res.setException(exc);
-	
+
 		return String.valueOf(setObjectToJson(res));
 
 	}
@@ -112,5 +117,19 @@ public class Utilities {
 		exc.setMethod(cause.getStackTrace()[0].getClassName()+"."+cause.getStackTrace()[0].getMethodName());
 		exc.setType("System");
 		return exc;
+	}
+	public List<String> getHeaders(MultiValueMap<String, String> headers,String path){
+		List<String> listOfRoutePaths  = null;
+		List<String> routePaths = headers.get("multiple");
+		System.out.println(routePaths);
+		if(null!=routePaths && !routePaths.isEmpty()) {
+			listOfRoutePaths= new ArrayList(Arrays.asList(routePaths.get(0).split(",")));
+			System.out.println(listOfRoutePaths);
+		}
+		if(null== listOfRoutePaths) {
+			listOfRoutePaths  = new ArrayList<String>();
+			listOfRoutePaths.add(path);
+		}
+		return listOfRoutePaths;
 	}
 }

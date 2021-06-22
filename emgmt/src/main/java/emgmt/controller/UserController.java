@@ -1,6 +1,11 @@
 package emgmt.controller;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
@@ -89,7 +94,8 @@ public class UserController {
 	public String getNationality(@RequestHeader MultiValueMap<String, String> headers) {
 
 		String returnValue = null;
-		System.out.println("--------------------"+headers);
+		util
+		System.out.println(new Utilities().getHeaders(headers,"/app/nationalities"));
 		return returnValue;  
 	}
 	@GetMapping(value="/app/religions" )
@@ -97,7 +103,7 @@ public class UserController {
 	public String getReligions(@RequestHeader MultiValueMap<String, String> headers) {
 
 		String returnValue = null;
-		System.out.println("--------------------"+headers);
+		System.out.println("--------------------");
 		return returnValue;  
 	}
 
