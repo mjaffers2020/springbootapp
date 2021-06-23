@@ -10,17 +10,18 @@ import javax.persistence.Table;
 public class Genders {
 	@Id
 	@Column(name="genderid")
-    private int genderId;
+    private String genderId;
 	
 	@Column(name="description")
     private String description;
 
 
-	public int getGenderId() {
+
+	public String getGenderId() {
 		return genderId;
 	}
 
-	public void setGenderId(int genderId) {
+	public void setGenderId(String genderId) {
 		this.genderId = genderId;
 	}
 

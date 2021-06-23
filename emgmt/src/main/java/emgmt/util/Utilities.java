@@ -14,8 +14,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import emgmt.common.exception;
-import emgmt.common.response;
-import emgmt.model.User;
+import emgmt.responsepacket.response;
 
 public class Utilities {
 
@@ -49,11 +48,12 @@ public class Utilities {
 
 	public <Generic> Generic setObjectToJson(Generic response) {
 		String responseJson = null;
+		
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 		objectMapper.setSerializationInclusion(Include.NON_NULL);
 		try {
-			responseJson = objectMapper.writeValueAsString(response);			
+			responseJson = objectMapper.writeValueAsString(response);	
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -129,7 +129,10 @@ public class Utilities {
 		if(null== listOfRoutePaths) {
 			listOfRoutePaths  = new ArrayList<String>();
 			listOfRoutePaths.add(path);
+		}else {
+			listOfRoutePaths.add(path);
 		}
 		return listOfRoutePaths;
 	}
+
 }

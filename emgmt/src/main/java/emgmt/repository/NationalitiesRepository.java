@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import emgmt.model.Nationalities;
 
 @Repository
-public interface NationalitiesRepository extends JpaRepository<Nationalities, Integer> {
+public interface NationalitiesRepository extends JpaRepository<Nationalities, String> {
 }

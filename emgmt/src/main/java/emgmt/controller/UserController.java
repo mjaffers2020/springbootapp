@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import emgmt.common.Constants;
+import emgmt.model.Student;
 import emgmt.model.User;
+import emgmt.responsepacket.StudentBasicProfileResponse;
 import emgmt.service.UserService;
 import emgmt.util.Utilities;
 
@@ -51,6 +54,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			returnValue = util.setFailureReponse(false, "uid is empay or null", "user");
 		}
 
 		return returnValue;  
@@ -60,8 +64,9 @@ public class UserController {
 	@ResponseBody
 	public String createNewUser(@RequestBody String userData){
 		String returnValue = "Error";
+		Utilities  util =  new Utilities();
 		try {
-			Utilities  util =  new Utilities();
+
 			User user  = util.setJsonToObject(userData,User.class);
 			returnValue = userService.createUser(user);
 			if("Error".equalsIgnoreCase(returnValue)) {
@@ -69,7 +74,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			returnValue = "Exception Occured : "+e.getMessage();
+			returnValue = util.setFailureReponse(false, "User Email Already Exits", "user");
 		}
 		return returnValue;
 	}
@@ -80,42 +85,76 @@ public class UserController {
 		return "fallback method";
 	}
 
-	@GetMapping(value="/Student/Basic/{studentid}" )
+	@GetMapping(value= {Constants.STUDENT_BASIC_PROFILE, Constants.STUDENT_BASIC_PROFILE2} )
 	@ResponseBody
-	public String getGenders(@PathVariable("studentid") String studentid,@RequestHeader MultiValueMap<String, String> headers) {
+	public String createNewStudent(@PathVariable("studentid") String studentid,@RequestHeader MultiValueMap<String, String> headers) {
 
-		String returnValue = null;
-		System.out.println(studentid);
-		System.out.println(headers);
+		String returnValue = "Error";
+		Utilities  util =  new Utilities();
+		try {
+
+			Student student  = util.setJsonToObject(studentid,Student.class);
+			returnValue = userService.createStudent(student);
+			if("Error".equalsIgnoreCase(returnValue)) {
+				returnValue = util.setFailureReponse(false, "student is already exists", "user");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			returnValue = util.setFailureReponse(false, "Exception While inserting Student Details", "user");
+		}
 		return returnValue;  
 	}
-	@GetMapping(value="/app/nationalities" )
+	
+	@GetMapping(value=Constants.NATIONALITIES )
 	@ResponseBody
 	public String getNationality(@RequestHeader MultiValueMap<String, String> headers) {
 
 		String returnValue = null;
-		util
-		System.out.println(new Utilities().getHeaders(headers,"/app/nationalities"));
+		Utilities util  =  new Utilities();
+		try {
+			List<String> routePaths = util.getHeaders(headers,Constants.NATIONALITIES);
+			StudentBasicProfileResponse  studentBasicProfileResponse =  userService.validateRoutePaths(routePaths);
+			returnValue = String.valueOf(util.setObjectToJson(studentBasicProfileResponse));
+		}catch(Exception e) {
+			returnValue = util.setFailureReponse(false, "Nationality path is undefined", "user");
+			e.printStackTrace();
+		}
 		return returnValue;  
 	}
-	@GetMapping(value="/app/religions" )
+	@GetMapping(value=Constants.RELIGIONS )
 	@ResponseBody
 	public String getReligions(@RequestHeader MultiValueMap<String, String> headers) {
 
 		String returnValue = null;
-		System.out.println("--------------------");
+		Utilities util  =  new Utilities();
+		try {
+			List<String> routePaths = util.getHeaders(headers,Constants.RELIGIONS);
+			StudentBasicProfileResponse  studentBasicProfileResponse =  userService.validateRoutePaths(routePaths);
+			returnValue = String.valueOf(util.setObjectToJson(studentBasicProfileResponse));
+		}catch(Exception e) {
+			returnValue = util.setFailureReponse(false, "Religion path is undefined", "user");
+			e.printStackTrace();
+		}
 		return returnValue;  
 	}
 
-	@GetMapping(value="/app/genders" )
+	@GetMapping(value=Constants.GENDERS )
 	@ResponseBody
 	public String getGenders(@RequestHeader MultiValueMap<String, String> headers) {
 
 		String returnValue = null;
-		System.out.println("--------------------"+headers);
+		Utilities util  =  new Utilities();
+		try {
+			List<String> routePaths = util.getHeaders(headers,Constants.GENDERS);
+			StudentBasicProfileResponse  studentBasicProfileResponse =  userService.validateRoutePaths(routePaths);
+			returnValue = String.valueOf(util.setObjectToJson(studentBasicProfileResponse));
+		}catch(Exception e) {
+			returnValue = util.setFailureReponse(false, "Genders path is undefined", "user");
+			e.printStackTrace();
+		}
 		return returnValue;  
 	}
-	
+
 	/*	@RequestMapping(value="/updateUser", method=RequestMethod.POST , headers = "Accept=application/json") 
 	@ResponseBody
 	public String updateUser(@RequestBody User user){

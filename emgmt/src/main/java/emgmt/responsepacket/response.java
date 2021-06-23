@@ -1,4 +1,6 @@
-package emgmt.common;
+package emgmt.responsepacket;
+
+import emgmt.common.exception;
 
 public class response {
 	private boolean success;

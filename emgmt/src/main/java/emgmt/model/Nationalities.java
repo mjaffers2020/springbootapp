@@ -10,17 +10,18 @@ import javax.persistence.Table;
 public class Nationalities {
 	@Id
 	@Column(name="nationalityid")
-    private int nationalityId;
+    private String nationalityId;
 	
 	@Column(name="description")
     private String description;
 
 
-	public int getNationalityId() {
+
+	public String getNationalityId() {
 		return nationalityId;
 	}
 
-	public void setNationalityId(int nationalityId) {
+	public void setNationalityId(String nationalityId) {
 		this.nationalityId = nationalityId;
 	}
 

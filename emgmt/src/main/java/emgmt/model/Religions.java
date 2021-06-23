@@ -10,21 +10,22 @@ import javax.persistence.Table;
 public class Religions {
 	@Id
 	@Column(name="religionid")
-    private int religionId;
+    private String religionId;
 	
 	@Column(name="description")
     private String description;
 
-	public int getReligionId() {
-		return religionId;
-	}
-
-	public void setReligionId(int religionId) {
-		this.religionId = religionId;
-	}
 
 	public String getDescription() {
 		return description;
+	}
+
+	public String getReligionId() {
+		return religionId;
+	}
+
+	public void setReligionId(String religionId) {
+		this.religionId = religionId;
 	}
 
 	public void setDescription(String description) {

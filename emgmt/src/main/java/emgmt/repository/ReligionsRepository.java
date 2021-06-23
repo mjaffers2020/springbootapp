@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import emgmt.model.Religions;
 
 @Repository
-public interface ReligionsRepository extends JpaRepository<Religions, Integer> {
+public interface ReligionsRepository extends JpaRepository<Religions, String> {
 }
