@@ -5,32 +5,35 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="student", schema = "ems")
+@Table(name="student", schema = "ems" )
 @SecondaryTable(name="profilebasic", schema = "ems", pkJoinColumns = @PrimaryKeyJoinColumn(name = "profilebasicid"))
-@SecondaryTable(name="address", schema = "ems", pkJoinColumns = @PrimaryKeyJoinColumn(name = "addressid"))
+//@SecondaryTable(name="address", schema = "ems", pkJoinColumns = @PrimaryKeyJoinColumn(name = "addressid"))
 
 public class Student {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
-	
-	@Column(name="studentid")
+	@Column(name="studentid" , table="student")
     private int studentId;
 
-	@Column(name="active")
+	@Column(name="active"  , table="student")
     private boolean active;
 
-	@Column(name="address", table="address")
+	/*@Column(name="address", table="address")
     private String address;
 
 	@Column(name="zipcode", table="address")
     private String zipcode;
-	
-	@Column(name="profilebasicid", table="profilebasic")
+	*/
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@JoinColumn(name="profilebasic.profilebasicid", referencedColumnName = "profilebasicid")
+	@Id
+	@Column(name="profilebasicid" , table="student")//, table="profilebasic",insertable =false, updatable = false)
     private int profileBasicId;
 	
 	@Column(name="firstname" , table="profilebasic")
@@ -48,7 +51,7 @@ public class Student {
 	@Column(name="dateofbirth" , table="profilebasic")
     private String dateOfBirth;
 
-	
+	/*
 	public String getAddress() {
 		return address;
 	}
@@ -64,7 +67,7 @@ public class Student {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-
+*/
 	public boolean isActive() {
 		return active;
 	}
@@ -81,13 +84,13 @@ public class Student {
 		this.studentId = studentId;
 	}
 
-	public int getProfileBasicId() {
+	/*public int getProfileBasicId() {
 		return profileBasicId;
 	}
 
 	public void setProfileBasicId(int profileBasicId) {
 		this.profileBasicId = profileBasicId;
-	}
+	}*/
 
 	public String getFirstName() {
 		return firstName;
@@ -129,7 +132,7 @@ public class Student {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getReligionId() {
+/*	public String getReligionId() {
 		return religionId;
 	}
 
@@ -150,7 +153,7 @@ public class Student {
 
 	@Column(name="nationalityid")
     private String nationalityId;
-
+*/
 	
 
 }

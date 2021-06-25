@@ -85,15 +85,15 @@ public class UserController {
 		return "fallback method";
 	}
 
-	@GetMapping(value= {Constants.STUDENT_BASIC_PROFILE, Constants.STUDENT_BASIC_PROFILE2} )
+	@RequestMapping(value= {Constants.STUDENT_INSERT, Constants.STUDENT_INSERT2}, method=RequestMethod.POST , headers = "Accept=application/json" )
 	@ResponseBody
-	public String createNewStudent(@PathVariable("studentid") String studentid,@RequestHeader MultiValueMap<String, String> headers) {
+	public String createNewStudent(@RequestBody String studentJson) {
 
 		String returnValue = "Error";
 		Utilities  util =  new Utilities();
 		try {
 
-			Student student  = util.setJsonToObject(studentid,Student.class);
+			Student student  =util.setJsonToObject(studentJson,Student.class);
 			returnValue = userService.createStudent(student);
 			if("Error".equalsIgnoreCase(returnValue)) {
 				returnValue = util.setFailureReponse(false, "student is already exists", "user");

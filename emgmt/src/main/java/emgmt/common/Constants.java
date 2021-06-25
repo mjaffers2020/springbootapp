@@ -15,4 +15,7 @@ public interface Constants {
 	String STUDENT_BASIC_PROFILE1 = "Student/Basic/{studentid}";
 	String STUDENT_BASIC_PROFILE2 = "/student/basic/{studentid}";
 	String STUDENT_BASIC_PROFILE3 = "student/basic/{studentid}";
+	String STUDENT_INSERT = "/Student/Basic";
+	String STUDENT_INSERT2 = "/student/basic";
+
 }
