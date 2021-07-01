@@ -14,6 +14,9 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import emgmt.common.exception;
+import emgmt.model.Address;
+import emgmt.model.ProfileBasic;
+import emgmt.model.Student;
 import emgmt.responsepacket.response;
 
 public class Utilities {
@@ -28,6 +31,12 @@ public class Utilities {
 			// TODO: handle exception
 		}	
 		return flag;
+	}
+	public static void main(String[] args) {
+		Student stu = new Student();
+		stu.setProfileBasic(new ProfileBasic());
+		stu.setAddress(new Address());
+		new Utilities().setObjectToJson(stu);
 	}
 	public <Generic> Generic  setJsonToObject(String userData,Class<Generic> clazz) {
 		Generic genericData = null;
@@ -51,9 +60,10 @@ public class Utilities {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-		objectMapper.setSerializationInclusion(Include.NON_NULL);
+	//	objectMapper.setSerializationInclusion(Include.NON_NULL);
 		try {
 			responseJson = objectMapper.writeValueAsString(response);	
+			System.out.println(responseJson);
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

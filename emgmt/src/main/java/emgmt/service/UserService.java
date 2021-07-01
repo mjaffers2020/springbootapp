@@ -87,7 +87,7 @@ public class UserService {
 			return null;
 		}
 	}
-	public String getStudentDetailsById(String studentid) throws RecordNotFoundException {
+	public String getStudentDetailsById(int studentid) throws RecordNotFoundException {
 		Utilities util = new Utilities(); 
 		System.out.println("Student ID recieved : "+studentid);
 		if(studentRepository.existsByStudentId(studentid)) { 

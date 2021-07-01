@@ -1,9 +1,6 @@
 package emgmt.controller;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +57,35 @@ public class UserController {
 		return returnValue;  
 	}
 
+	@GetMapping(value="/Student/Basic/{studentid}")
+	@ResponseBody
+	public String getStudent(@PathVariable("studentid") Integer studentid) {
+
+		String returnValue = null;
+		Utilities  util =  new Utilities();
+		System.out.println(studentid);
+
+		try {
+			if(null!=studentid && !"".equals(studentid)) {
+				returnValue = userService.getStudentDetailsById(studentid);
+				if(null==returnValue) {
+					System.out.println("Student Details not Fouhd "+returnValue);
+					returnValue = util.setFailureReponse(false, "studentid does not Exits", "user");
+				}
+			}else {
+				System.out.println("studentid is empay or null "+returnValue);
+				returnValue = util.setFailureReponse(false, "studentid is empay or null", "user");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			returnValue = util.setFailureReponse(false, "studentid is empay or null", "user");
+		}
+
+		return returnValue;  
+	}
+
+	
 	@RequestMapping(value="/register", method=RequestMethod.POST , headers = "Accept=application/json") 
 	@ResponseBody
 	public String createNewUser(@RequestBody String userData){
@@ -92,7 +118,7 @@ public class UserController {
 		String returnValue = "Error";
 		Utilities  util =  new Utilities();
 		try {
-
+			System.out.println(studentJson);
 			Student student  =util.setJsonToObject(studentJson,Student.class);
 			returnValue = userService.createStudent(student);
 			if("Error".equalsIgnoreCase(returnValue)) {

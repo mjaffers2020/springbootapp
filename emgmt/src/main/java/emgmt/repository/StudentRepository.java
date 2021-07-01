@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import emgmt.model.Student;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, String> {
-	public Student findByStudentId(String studentId);
-	public boolean existsByStudentId(String studentId);
+public interface StudentRepository extends JpaRepository<Student, Integer> {
+	public Student findByStudentId(int studentId);
+	public boolean existsByStudentId(int studentId);
 }
