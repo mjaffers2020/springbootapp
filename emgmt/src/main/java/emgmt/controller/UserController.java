@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.springboot.Entity.UserEntity;
-
 import emgmt.common.Constants;
 import emgmt.model.Student;
 import emgmt.model.User;
