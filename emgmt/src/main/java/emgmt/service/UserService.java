@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.springboot.Entity.UserEntity;
-
 import emgmt.common.Constants;
 import emgmt.exception.RecordNotFoundException;
 import emgmt.model.Genders;
