@@ -146,6 +146,7 @@ public class UserService {
 		Utilities util = new Utilities(); 
 		System.out.println("UID recieved : "+UId);
 		if(userRepository.existsByuId(UId)) { 
+			System.out.println("UID found");
 			User userDetails = userRepository.findByuId(UId);
 			String cUId = userDetails.getuId(); 
 			if(!util.isNullorWhiteSpaces(cUId)) {
