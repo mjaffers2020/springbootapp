@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.springboot.Entity.UserEntity;
+
 import emgmt.common.Constants;
 import emgmt.exception.RecordNotFoundException;
 import emgmt.model.Genders;
@@ -198,6 +200,14 @@ public class UserService {
 			System.out.println("User ID does not exits  : " + userDetail.getUserId());
 			return "Error";
 		}
+	}
+	public void deleteUser(String uid) throws RecordNotFoundException
+	{
+		User user = userRepository.findByuId(uid);   
+		if (user != null) {
+			userRepository.delete(user);
+		}
+
 	}
 
 }

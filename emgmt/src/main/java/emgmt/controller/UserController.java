@@ -40,7 +40,6 @@ public class UserController {
 	@GetMapping(value="/user/{uid}" )
 	@ResponseBody
 	public String getUser(@PathVariable("uid") String uid) {
-
 		String returnValue = null;
 		Utilities  util =  new Utilities();
 		System.out.println(uid);
@@ -49,17 +48,17 @@ public class UserController {
 			if(null!=uid && !"".equals(uid)) {
 				returnValue = userService.getUserDetailsById(uid);
 				if(null==returnValue) {
-					System.out.println("User Details not Fouhd "+returnValue);
+					System.out.println("User Details not found "+returnValue);
 					returnValue = util.setFailureReponse(false, "Uid does not Exits", "user");
 				}
 			}else {
-				System.out.println("uid is empay or null "+returnValue);
-				returnValue = util.setFailureReponse(false, "uid is empay or null", "user");
+				System.out.println("uid is empty or null "+returnValue);
+				returnValue = util.setFailureReponse(false, "uid is empty or null", "user");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			returnValue = util.setFailureReponse(false, "uid is empay or null", "user");
+			returnValue = util.setFailureReponse(false, "uid is empty or null", "user");
 		}
 
 		return returnValue;  
@@ -81,13 +80,13 @@ public class UserController {
 					returnValue = util.setFailureReponse(false, "studentid does not Exits", "user");
 				}
 			}else {
-				System.out.println("studentid is empay or null "+returnValue);
+				System.out.println("studentid is empty or null "+returnValue);
 				returnValue = util.setFailureReponse(false, "studentid is empay or null", "user");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			returnValue = util.setFailureReponse(false, "studentid is empay or null", "user");
+			returnValue = util.setFailureReponse(false, "studentid is empty or null", "user");
 		}
 
 		return returnValue;  
@@ -203,21 +202,22 @@ public class UserController {
 			returnValue = "Exception Occured : "+e.getMessage();
 		}
 		return returnValue;
-	}
-	@RequestMapping(value="/deleteUser", method=RequestMethod.POST)
+	}*/
+	
+	@RequestMapping(value="/deleteUser/{uid}", method=RequestMethod.DELETE)
 	@ResponseBody
-	public String deleteUser(@RequestBody User user){
-		String returnValue = "Sucess";
+	public String deleteUser(@PathVariable("uid") String uid){
+		String returnValue = "sucess";
 		try {
-			//userService.deleteUser(user.getUserid());
-			returnValue = "UserName : '"+user.getUserId()+"', Deleted Successfully";
-			// deleteUser
+			System.out.println("UID received : "+uid);
+			userService.deleteUser(uid);
+			returnValue = "UserName : '"+uid+"', Deleted Successfully";
 		} catch (Exception e) {
 			returnValue = "Exception : "+e.getMessage();
 		}
 		return returnValue;
 	}
-	 */
+	 
 
 
 }
