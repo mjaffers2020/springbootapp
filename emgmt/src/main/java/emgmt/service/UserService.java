@@ -145,7 +145,7 @@ public class UserService {
 	public String getUserDetailsById(String UId) throws RecordNotFoundException {
 		Utilities util = new Utilities(); 
 		System.out.println("UID recieved : "+UId);
-		if(userRepository.existsByuid(UId)) { 
+		if(userRepository.existsByuId(UId)) { 
 			System.out.println("UID found");
 			User userDetails = userRepository.findByuId(UId);
 			String cUId = userDetails.getuId(); 
