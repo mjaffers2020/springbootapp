@@ -203,6 +203,7 @@ public class UserService {
 	{
 		User user = userRepository.findByuId(uid);   
 		if (user != null) {
+			System.out.println("User is available to delete");
 			userRepository.delete(user);
 		}
 
